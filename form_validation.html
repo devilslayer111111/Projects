@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <script src="jquery.js"></script>
+    <style>
+        body {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 130%;
+        }
+
+        .wrapper {
+            width: 550px;
+            margin: 0 auto;
+        }
+
+        label {
+            width: 200px;
+            float: left;
+            position: relative;
+            top: 12px;
+        }
+
+        input {
+            width: 320px;
+            font-size: 25px;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px 5px 12px 5px;
+        }
+
+        .formele {
+            margin: 5px;
+        }
+
+        #sub {
+            width: 130px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="errors"></div>
+    <div class="wrapper">
+        <div class="formele"><label for="Email">Email</label>
+            <input type="text" id="Email" name="Email">
+        </div>
+        <div class="formele"><label for="Phone">Phone</label>
+            <input type="text" id="Phone" name="Phone">
+        </div>
+        <div class="formele"><label for="Password">Password</label>
+            <input type="password" id="Password" name="Password">
+        </div>
+        <div class="formele"><label for="Confirm Password">Confirm Password</label>
+            <input type="password" id="ConfirmPassword" name="Confirm Password">
+        </div>
+
+    </div>
+    <input id="sub" type="submit">
+
+    <script>
+        var errormessage = "";
+        var missing = "";
+        function validateEmail($email) {
+            var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailReg.test($email);
+        }
+        $("#sub").click(function () {
+            if ($("#Email").val() == "")
+                missing += "\nEmail not filled yet";
+            if ($("#Phone").val() == "")
+                missing += "<p>Phone no missing</p>";
+            if ($("#Password").val() == "")
+                missing += "<p>Password is empty</p>";
+            if (validateEmail($("#Email").val()) == false) {
+                errormessage += "<p>Email is not a valid email</p>";
+            }
+            if ($.isNumeric($("#phone").val()) == false)
+                errormessage += "<p>Phone number is not valid</p>";
+            if ($("#Password").val() != $("#ConfirmPassword").val()) {
+                errormessage += "<p>The passwords does not match</p>";
+            }
+          if(errormessage == "")
+          {
+            alert("You Submitted the form correctly");
+          }
+          else
+          {
+            $("#errors").html(errormessage+missing);
+          }
+
+        });
+
+    </script>
+</body>
+
+</html>
